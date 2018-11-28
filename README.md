@@ -18,6 +18,6 @@ without having to serve them on a separate http server.
 
 ## License
 
-[Apache 2.0](http://www.apache.org/licenses/)
+Licensed under the Apache License, Version 2.0
 
-Copyright (c) 2018, Paulo Lopes
+_(c) Copyright 2018, Paulo Lopes_
