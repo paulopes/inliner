@@ -1,6 +1,6 @@
 {
   "name": "inliner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Convert .js and .css files into python classes",
   "main": "index.js",
   "scripts": {
