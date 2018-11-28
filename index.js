@@ -110,5 +110,6 @@ ${data}'''
     process.stdout.write(`
     Usage:
         inliner <name for the .js or .css resource> <path to the .js or .css resource>
+
 `)
 }
