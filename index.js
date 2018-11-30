@@ -95,7 +95,8 @@ ${data}'''
                     if (err) {
                         console.error(`Error: Unable to write to ${class_name}.py file.`);
                     } else {
-                        process.stdout.write(`The ${class_name}.py file has been created.`);
+                        process.stdout.write(`The ${class_name}.py file has been created.
+`);
                     };
                 });
             })
