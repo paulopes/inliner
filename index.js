@@ -14,14 +14,26 @@ if (argv.length > 3) {
     var tag = '';
     var source = '';
 
-    fs.readFile(path_to_file, 'utf8', function(err, data) {  
+    if (file_type == 'png' || file_type == 'jpg' || file_type == 'jpeg' ) {
+        encoding = null;
+    } else {
+        encoding = 'utf8'
+    }
+
+    fs.readFile(path_to_file, encoding, function(err, data) {  
         if (err) {
             console.error(`Error: Unable to read the ${path_to_file} file.`);
         };
 
-        var source = `# -*- coding: utf-8 -*-
+        source += `# -*- coding: utf-8 -*-
 
-import os
+import os`
+        if (file_type == 'png' || file_type == 'jpg' || file_type == 'jpeg' ) {
+            source += `
+import base64`
+        }
+
+        source += `
 
 
 class ${class_name}:
@@ -41,16 +53,16 @@ class ${class_name}:
                 except OSError as e: # Guard against race condition
                     if e.errno != errno.EEXIST:
                         raise
-
-            raw_file = r'''\\
-${data}'''
-            with open(dest_path, "w") as dest_file:
-                dest_file.write(raw_file)
 `
         switch (file_type) {
             case 'js':
                 tag = '<script inline src="' + path_to_file + '"></script>';
                 source += `
+            raw_file = r'''\\
+${data}'''
+            with open(dest_path, "w") as dest_file:
+                dest_file.write(raw_file)
+    
     @staticmethod
     def get_tag(path):
         if len(path) > 0:
@@ -71,6 +83,11 @@ ${data}'''
             case 'css':
                 tag = '<link inline rel="stylesheet" type="text/css" href="' + path_to_file + '"></link>';
                 source += `
+            raw_file = r'''\\
+${data}'''
+            with open(dest_path, "w") as dest_file:
+                dest_file.write(raw_file)
+    
     @staticmethod
     def get_tag(path):
         if len(path) > 0:
@@ -78,6 +95,42 @@ ${data}'''
         else:
             beginning = '<link rel="stylesheet" type="text/css" href="'
         return beginning + '''${path_to_file}"></link>'''
+`
+                break;
+            case 'svg':
+                tag = '<img inline src="' + path_to_file + '"></img>';
+                source += `
+            raw_file = r'''\\
+${data}'''
+            with open(dest_path, "w") as dest_file:
+                dest_file.write(raw_file)
+
+    @staticmethod
+    def get_tag(path):
+        if len(path) > 0:
+            beginning = '''<img src="{}/'''.format(path)
+        else:
+            beginning = '<img src="'
+        return beginning + '''${path_to_file}" />'''
+`
+            break;
+            case 'png':
+            case 'jpg':
+            case 'jpeg':
+                tag = '<img inline src="' + path_to_file + '"></img>';
+                source += `
+            b64_file = r'''\\
+${Buffer.from(data).toString('base64')}'''
+            with open(dest_path, "wb") as dest_file:
+                dest_file.write(base64.b64decode(b64_file).decode('utf-8'))
+    
+    @staticmethod
+    def get_tag(path):
+        if len(path) > 0:
+            beginning = '''<img src="{}/'''.format(path)
+        else:
+            beginning = '<img src="'
+        return beginning + '''${path_to_file}" />'''
 `
                 break;
         };

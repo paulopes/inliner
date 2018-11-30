@@ -1,11 +1,11 @@
-# inliner
-Convert .js and .css files into python classes
+# The `inliner` Command
+Convert .js, .css, .svg, .png, .jpg/jpeg files into python classes
 
 
 ## Usage
 Type this command in your command line:
 
-    inliner <name for the .js or .css resource> <path to the .js or .css resource>
+    inliner <name for the .js, .css, .svg, .png, .jpg/jpeg resource> <path to that resource>
 
 ## Installation
 How to install as a globaly available command:

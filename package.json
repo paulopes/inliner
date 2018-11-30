@@ -1,7 +1,7 @@
 {
   "name": "inliner",
-  "version": "0.1.2",
-  "description": "Convert .js and .css files into python classes",
+  "version": "0.2.0",
+  "description": "Convert .js, .css, .svg, .png, .jpg/jpeg files into python classes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
