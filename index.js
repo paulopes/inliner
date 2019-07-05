@@ -27,7 +27,8 @@ if (argv.length > 3) {
 
         source += `# -*- coding: utf-8 -*-
 
-import os`
+import os
+import errno`
         if (file_type == 'png' || file_type == 'jpg' || file_type == 'jpeg' ) {
             source += `
 import base64`
